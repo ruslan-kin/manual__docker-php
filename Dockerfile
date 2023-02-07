@@ -1,7 +1,6 @@
 FROM php:8.1-fpm
 
-RUN pecl install apcu apfd xdebug && docker-php-ext-enable xdebug apfd
-COPY /xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+RUN pecl install apcu apfd && docker-php-ext-enable apfd
 
 RUN apt-get update && apt-get install -y \
   libicu-dev \
@@ -25,14 +24,3 @@ RUN composer --version
 
 RUN rm /etc/localtime
 RUN ln -s /usr/share/zoneinfo/Asia/Yekaterinburg /etc/localtime
-
-#WORKDIR /var/www/html
-#
-## Устанавливаем Symfony CLI
-#RUN echo 'deb [trusted=yes] https://repo.symfony.com/apt/ /' | tee /etc/apt/sources.list.d/symfony-cli.list \
-#    && apt update \
-#    && apt install -y symfony-cli
-#
-## Создаем при необходимости папки, разрешаем зависимости и устанавливаем их в папку vendor
-#CMD composer require symfony/requirements-checker \
-#    && php-fpm
