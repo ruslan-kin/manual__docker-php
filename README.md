@@ -1,6 +1,6 @@
 ## Подготовка окружения для проекта на РНР
 
-Чтобы создать окружение необходимо 3 файла: Dockerfile, docker-compose.yaml, default.conf.
+Чтобы создать окружение необходимо 4 файла: Dockerfile, docker-compose.yaml, default.conf, xdebug.ini.
 
 Dockerfile
 ```dockerfile
@@ -82,6 +82,15 @@ server {
   error_log /var/log/nginx/project_error.log;
   access_log /var/log/nginx/project_access.log;
 }
+```
+xdebig.ini
+```
+xdebug.mode=debug
+xdebug.discover_client_host=1
+xdebug.start_with_request=yes
+xdebug.client_port=9003
+xdebug.client_host=host.docker.internal
+xdebug.ide_key=PHPSTORM
 ```
 Размещаем эти файлы в папку проекта и запускаем команду  
 `$ docker-compose up -d --build`
